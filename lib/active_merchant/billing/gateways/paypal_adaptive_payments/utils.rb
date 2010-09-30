@@ -4,7 +4,7 @@ module ActiveMerchant
     module AdaptiveUtils
       
       def currency_to_two_places amount
-        return 0.01 if amount < 1
+        return 0.01 if amount < 0.2
         ("%.2f" % amount).to_f
       end
       

@@ -101,9 +101,9 @@ module ActiveMerchant #:nodoc:
           if opts[:notify_url]
             x.ipnNotificationUrl opts[:notify_url]
           end
-          x.trackingId opts[:tracking_id] if opts[:tracking_id]
           x.memo opts[:memo] if opts[:memo]
           x.pin opts[:pin] if opts[:pin]
+          x.trackingId opts[:tracking_id] if opts[:tracking_id]
           x.currencyCode opts[:currency_code] ||= 'USD'
           x.receiverList do |x|
             opts[:receiver_list].each do |receiver|
@@ -239,7 +239,8 @@ module ActiveMerchant #:nodoc:
       end
       
       def parse json
-        @raw = json
+        @raw = json.to_s # IT FIX!
+        PAYPAL_TRANSFER_LOGGER.error( @raw )
         resp = JSON.parse json
         if resp['responseEnvelope']['ack'] == 'Failure'
           error = AdaptivePaypalErrorResponse.new(resp)
