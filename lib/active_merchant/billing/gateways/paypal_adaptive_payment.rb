@@ -104,6 +104,9 @@ module ActiveMerchant #:nodoc:
           x.memo opts[:memo] if opts[:memo]
           x.pin opts[:pin] if opts[:pin]
           x.trackingId opts[:tracking_id] if opts[:tracking_id]
+          if opts[:reverse_all_parallel_payments_on_error]
+            x.reverseAllParallelPaymentsOnError opts[:reverse_all_parallel_payments_on_error]
+          end
           x.currencyCode opts[:currency_code] ||= 'USD'
           x.receiverList do |x|
             opts[:receiver_list].each do |receiver|
