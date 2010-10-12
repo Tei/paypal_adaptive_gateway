@@ -16,6 +16,10 @@ module AdaptivePay
       @raw    = raw_post
     end
 
+    def method_missing(name, *args)
+      @params[name.to_s] || super
+    end
+
     def valid?
       uri = URI.parse(base_page_url + '/webscr?cmd=_notify-validate')
 
