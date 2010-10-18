@@ -242,9 +242,9 @@ module ActiveMerchant #:nodoc:
       end
       
       def parse json
-        @raw = json.to_s # IT FIX!
+        @raw = json
         PAYPAL_TRANSFER_LOGGER.error( @raw )
-        resp = JSON.parse json
+        resp = Crack::JSON.parse json
         if resp['responseEnvelope']['ack'] == 'Failure'
           error = AdaptivePaypalErrorResponse.new(resp)
           raise PaypalAdaptivePaymentsApiError.new(error)
